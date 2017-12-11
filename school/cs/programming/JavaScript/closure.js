@@ -8,34 +8,37 @@ function init() {
     }
     displayName();    
 }
-init();
+init();  //prints "HelloWorld"
 
 //Below is the same, but an example of closure.
 //A closure is the combination of a function and the lexical environment within which that function was declared.
-function makeFunc() {
-    var name = 'Kay';
+//Kai: closure is when an inner function has access to its outer enclosing function's variables. 
+//Closures can be used for things like implementing privacy and creating function factories.
+
+function funcFactory() {
+    var name = 'Kai';
     function displayName() {
         console.log('Hello' + name);
     }
     return displayName;  //the different is that the displayName() inner function is returned from the outer function before being executed.
   }
   
-  var myFunc = makeFunc();
-  myFunc();
+  var myFunc = funcFactory();
+  myFunc();  //prints "HelloKai"
 
-//another example of closure.
+//another example of closure (a function returns a function)
 function html_text(tag){
-    function wrap_text(text) {
+    function inner(text) {
       console.log('<' + tag + '>' + text + '<' + tag + '>')
      }
-    return wrap_text
+    return inner;
   }
   
-  print_h1 = html_text('h1');
+ var print_h1 = html_text('h1');
   print_h1('Hello world!');
   print_h1('Another Headline!');
 
-  print_p = html_text('p');
+var print_p = html_text('p');
   print_p('This is a paragraph.');
 
 

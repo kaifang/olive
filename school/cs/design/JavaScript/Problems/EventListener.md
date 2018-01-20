@@ -42,10 +42,22 @@ This is what promises do. If HTML image elements had a "ready" method that retur
 
 ```
 img1.ready().then(function() {
-  // loaded
+  // Success
 }, function() {
-  // failed
+  // Failed
 });
+```
+
+You can also use catch():
+```
+//There's nothing special about catch(), it's just sugar for then(undefined, func)
+
+img1.ready().then(function(response) {
+  console.log("Success!", response);
+}).catch(function(error) {
+  console.log("Failed!", error);
+})
+
 ```
 
 promises are a bit like event listeners except:

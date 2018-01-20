@@ -50,15 +50,17 @@ img1.ready().then(function() {
 
 You can also use catch():
 ```
-//There's nothing special about catch(), it's just sugar for then(undefined, func)
-
 img1.ready().then(function(response) {
   console.log("Success!", response);
 }).catch(function(error) {
   console.log("Failed!", error);
 })
-
 ```
+Note, catch() is just sugar for then(undefined, func).
+But the difference is subtle. Promise rejections skip forward to the next then() (or catch(), since it's equivalent). 
+For example, With `then(func1, func2)`, `func1` or `func2` will be called, never both. 
+But with `then(func1).catch(func2)`, both will be called if `func1` rejects, as they're separate steps in the chain. 
+
 
 promises are a bit like event listeners except:
 

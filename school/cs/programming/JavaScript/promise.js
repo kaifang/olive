@@ -68,6 +68,23 @@ function get(url) {
     });
 }
 
+// compare the old way
+function old_get(myHttpRequest,url) {
+    const ruleDfd = new Deferred(); 
+    const isValid = regExpUtil.commonUrl.test(url);
+    if (isValid) {
+        myHttpRequest.execute('get', 'simpleGetRequestor', [url]).then(function () {
+            ruleDfd.resolve(true);
+        }, function () {
+            ruleDfd.resolve(false);
+        });
+    } else {
+        ruleDfd.resolve(isValid);
+    }
+
+    return ruleDfd;
+}
+
 //Now let's use it
 // 1
 get('story.json').then(function (response) {

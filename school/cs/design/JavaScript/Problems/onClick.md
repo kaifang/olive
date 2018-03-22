@@ -39,7 +39,7 @@ Doing `onClick={alert('click')}` would alert immediately instead of when the but
 ### Bug2: add Listener too late
 If an EventListener is added to an EventTarget while it is processing an event, that event does not trigger the listener. However, that same listener may be triggered during a later stage of event flow, such as the bubbling phase.
 
-solution: see Promise
+solution: see EventListener.md, use Promise
 
 ### Bug3: `this` undefined
 solution: see bind.md
@@ -49,5 +49,5 @@ you cannot remove the listener with bind.
 
 ### Bug5: Memory issues
 solution 1: set the passive option , prevents the listener from blocking page rendering while a user is scrolling.
-solution 2: 
+solution 2: use debouncing and throttling
 

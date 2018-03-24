@@ -62,12 +62,42 @@ A "class" in JavaScript has two parts:
 + The constructor function. This function contains all the logic to create an instance of the "class", i.e. instance specific code.
 + The prototype object. This is the object the instance inherits from. It contains all methods (and other properties) that should be shared among all instances.
 
-You will often see this:
+##### bug 1. shared prototype problem
+```
+var Animal = {
+    traits: {},
+}
+var lion = Object.create(Animal);
+lion.traits.legs = 4;
+var bird = Object.create(Animal);
+bird.traits.legs = 2;
+alert(lion.traits.legs) // shows 2!!!
+```
+
+using new the prototypal inheritance is explicit
+```
+function Animal() {
+    this.traits = {};
+}
+
+function Lion() { }
+Lion.prototype = new Animal();
+function Bird() { }
+Bird.prototype = new Animal();
+
+var lion = new Lion();
+lion.traits.legs = 4;
+var bird = new Bird();
+bird.traits.legs = 2;
+alert(lion.traits.legs) // now shows 4
+```
+
+hence, you will often see this:
 ```
 Dog.prototype = new Animal();
 ```
 
-##### bug 1. one specific instance  
+##### bug 2. one specific instance  
 But it implies that every dog inherits from one specific Animal instance. 
 That seems to be a bit strange. Shouldn't instance specific code only be run in the constructor function? 
 Suddenly instance specific code and prototype methods seem to be mixed.
@@ -87,7 +117,8 @@ function Dog() {
 }
 ```
 
-##### bug 2. constructor with parameter won't work
+
+##### bug 3. constructor with parameter won't work
 Imagine if the constructor expects any arguments:
 ```
 function Animal(name) { 
@@ -97,7 +128,7 @@ function Animal(name) {
 What will you pass when you do Dog.prototype = new Animal(??);? 
 It doesn't actually matter which string you pass, as long as pass something, which hopefully shows you that this is bad design.
 
-##### bug 3. Dog.prototype = Animal.prototype, still no good
+##### bug 4. Dog.prototype = Animal.prototype, still no good
 
 ```
 Dog.prototype.bark = function() {
@@ -120,3 +151,14 @@ class Dog extends Animal {
 ```
 Note, `extends` uses an internal equivalent to `Object.create` to setup inheritance.
 Which means that using `Object.create(SuperClass.prototype)`
+
+### Why using “Object.create” instead of “new”
+
+Sometimes you cannot create an object with NEW but are still able to invoke the CREATE method.
+
+For example: if you want to define a Custom Element it must derive from HTMLElement.
+```
+proto = new HTMLElement  //fail :(
+proto = Object.create( HTMLElement.prototype )  //OK :)
+document.registerElement( "custom-element", { prototype: proto } )
+```

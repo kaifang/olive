@@ -1,4 +1,5 @@
-// The Javascript splice only works with arrays.
+//* The splice() only works with arrays.
+//* The splice() method changes the original array and slice() method doesn’t change the original array.
 
 // Method1, use slice()
 function spliceSlice(str, index, count, add) {

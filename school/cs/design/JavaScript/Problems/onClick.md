@@ -36,6 +36,24 @@ Passing a function reference - do not add '()' after it, which would call the fu
 Note that we’re passing a function as the onClick prop. 
 Doing `onClick={alert('click')}` would alert immediately instead of when the button is clicked.
 
+Note, React always use function, not a string name for the onClick.
+
+```
+class Button extends React.Component {
+  handleClick = () => {
+    this.props.onClickFunction(this.props.incrementValue);
+  };
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        +{this.props.incrementValue}
+      </button>
+    );
+  }
+}
+```
+
 ### Bug2: add Listener too late
 If an EventListener is added to an EventTarget while it is processing an event, that event does not trigger the listener. However, that same listener may be triggered during a later stage of event flow, such as the bubbling phase.
 

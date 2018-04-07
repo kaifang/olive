@@ -45,4 +45,41 @@ arr.forEach(item => {
 return newArray;
 ```
 
-use map in react to return components:
+In react, render lists inside a component:
+```
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+
+//In the examples above we declared a separate listItems variable and included it in JSX
+//JSX allows embedding any expressions in curly braces so we could inline the map() result:
+/* 
+function NumberList(props) {
+  const numbers = props.numbers;
+  return (
+    <ul>
+      {numbers.map((number) =>
+        <ListItem key={number.toString()}
+                  value={number} />
+
+      )}
+    </ul>
+  );
+}
+*/
+
+const numbers = [1, 2, 3, 4, 5];
+
+ReactDOM.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```

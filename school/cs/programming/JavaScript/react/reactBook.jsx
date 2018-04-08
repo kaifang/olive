@@ -70,7 +70,8 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, mountNode);
+//ReactDOM.render(<App />, mountNode);
+ReactDOM.render(<App />, document.getElementById('app');
 
     //we could do onClick on the button, but it's better to use form onSubmit
     //to take advantage of such as 'required' on the form field.

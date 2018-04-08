@@ -13,6 +13,15 @@ which would mean that the indexOf check would return a 0 (the position for the v
 the string). And because 0 is a ‘falsy’ value – meaning that it is treated as a boolean false. 
 */
 
+// another 'falsy' value case
+function add(x, y) {
+    //if y === undefined
+    //    y = 5;
+    y = y || 5;  //bad, because if y=0
+    return x + y;
+}
+add(4,0);  // 9
+
 // Case 2:  wrapper object is temporary, created then thrown away.
 someString = "Hello world!";
 //the letter variable will hold a "H":

@@ -45,6 +45,12 @@ let elem = document.getElementById('container');
 elem.addEventListener('scroll', debounce_foo(foo, 2000));
 */
 
+/*
+If we are invoking for the first time, our function will execute at the end of our delay. 
+If we invoke once and then invoke again before the end of our delay, the initial delay is cleared 
+and a new delay process started.
+*/
+
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the

@@ -17,7 +17,7 @@ for(let i=1; i<6; i++){
    },100)
 }
 
-/* Note: 
+/* Note: ??
 Quoting ECMAScript 6 (ECMAScript 2015) specification's, let and const declarations section,
 The variables are created when their containing Lexical Environment is instantiated but may not be accessed in any way until the variable’s LexicalBinding is evaluated.
 
@@ -30,6 +30,15 @@ It will only get initialised when the let/const/class statement is evaluated, ev
 
 The temporal dead zone is not a syntactic location, but rather the time between the variable (scope) creation and the initialisation. 
 It's not an error to reference the variable in code above the declaration as long as that code is not executed
+*/
+
+/* Update:
+In ECMAScript 2015, let bindings are not subject to Variable Hoisting, 
+which means that let declarations do not move to the top of the current execution context. 
+Referencing the variable in the block before the initialization results in a ReferenceError 
+(contrary to a variable declared with var, which will just have the undefined value). 
+
+The variable is in a "temporal dead zone" from the start of the block until the initialization is processed.
 */
 
 function do_something() {

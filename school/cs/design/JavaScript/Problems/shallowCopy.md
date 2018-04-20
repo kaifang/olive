@@ -55,6 +55,23 @@ var copy = Object.assign({}, obj);
 console.log(copy); // { baz: 3 }
 ```
 
+Object.assign shallow copies all the details except getter and setter functions of the original source object.
+### Object.getOwnPropertyDescriptors along with Object.defineProperties
+The main motivation to add this is to allow shallow copying / cloning an object into another object that also copies getter and setter functions as opposed to Object.assign
+
+```
+const ElectricCar = Object.assign({}, Car);
+console.log(Object.getOwnPropertyDescriptor(ElectricCar, 'discount'));
+//Notice that getters and setters are missing in ElectricCar
+// { 
+//   value: undefined,
+//   writable: true,
+//   enumerable: true,
+//   configurable: true
+
+const ElectricCar2 = Object.defineProperties({}, Object.getOwnPropertyDescriptors(Car));
+```
+
 ### Benefits of using `Object.create` for inheritance
 
 A "class" in JavaScript has two parts:

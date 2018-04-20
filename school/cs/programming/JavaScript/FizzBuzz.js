@@ -30,13 +30,25 @@ function fizzBuzz_bad(divisors = {
 
     for (var num = 1; num <= maxNumber; num++) {
         var str = "";
+        var str2 = "";
+
+        //ES5
         // Loops through the keys of the divisors
         Object.keys(divisors).forEach(function (key) {
             // Ternary expression, if divisible append key else do nothing
             str += num % divisors[key] == 0 ? key : '';
         });
+
+        //ES8 Object.entries
+        for (let [key, value] of Object.entries(divisors)) {
+            str2 += num % value == 0 ? key : '';
+        }
+
         // If anything got appended print string else num
-        console.log(str ? str : num)
+        console.log(str ? str : num);
+        console.log('ES8:');
+        console.log(str ? str : num);
+
     }
 }
 
@@ -57,6 +69,14 @@ const divisors_good = new Map([[3,'fizz'],[5,'buzz']]);
 
 console.log('------------------------');
 // 4
+//ES6 introduces a new data structure, called Map.
+//as an alternative to using Object literals for storing key/value pairs.
+// drawback of using object literals:
+// (1) may have keys that clobber Object prototype methods
+// (2) all keys can only be strings. (when attempting to use a primitive value as a string, 
+//     the system will convert it to a string behind the scenes.)
+// (3) property/key orders are not guaranteed
+// (4) Objects also lacks a forEach method
 function fizzBuzz(divisors = new Map([[3,'fizz'],[5,'buzz']]), maxNumber = 10) {
     for (var num = 1; num <= maxNumber; num++) {
       console.log(fizzValue(divisors, num));

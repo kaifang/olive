@@ -26,4 +26,19 @@ No, the quotes do not make a difference. unless,
  
 ```
 
-Note: JSON data format does require double quotes around identifiers.
+##### Note: JSON data format does require double quotes around identifiers.
+
+##### Note: The keys of an Object are Strings and Symbols, whereas they can be any value for a Map, including functions, objects, and any primitive.
+
+drawback of using object literals is all keys can only be strings. This works in many situations, but when attempting to use a primitive value as a string, the system will convert it to a string behind the scenes. This kind of magic which happens under the hood and without notification to the user can cause unexpected results, for instance, if the provided key is an array.
+```
+obj[[1,2,3]] = "value4" // the provided key is an array
+obj['1,2,3'] = "value4" // the system has made the key a string
+```
+
+Another example
+```
+obj = { 12e34: true }; 
+obj['1.2e+35']  // the system has made it to a string
+```
+

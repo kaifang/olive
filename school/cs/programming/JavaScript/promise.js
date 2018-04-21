@@ -1,3 +1,73 @@
+//Calling APIs, downloading files, reading files are among some of the usual async operations.
+
+//Prior to Promise, we use callback. 
+function addAsync (num1, num2, callback) {
+    // use the famous jQuery getJSON callback API
+    return $.getJSON('http://www.example.com', {
+        num1: num1,
+        num2: num2
+    }, callback);
+}
+
+addAsync(1, 2, success => {
+    // callback
+    const result = success; // you get result = 3 here
+});
+
+//What if You Want to Perform Subsequent Async Action?
+addAsync(1, 2, success => {
+    // callback 1
+    resultA = success; // you get result = 3 here
+
+    addAsync(resultA, 3, success => {
+        // callback 2
+        resultB = success; // you get result = 6 here
+
+        addAsync(resultB, 4, success => {
+            // callback 3
+            resultC = success; // you get result = 10 here
+
+            console.log('total' + resultC);
+            console.log(resultA, resultB, resultC);
+        });
+    });
+});
+//people refer this as "callback hell"
+
+//Promises come in to rescue
+
+let resultA, resultB, resultC;
+
+// add two numbers remotely 
+function addAsync(num1, num2) {
+    // use ES6 fetch API, which return a promise
+    return fetch(`http://www.example.com?num1=${num1}&num2=${num2}`)
+        .then(x => x.json());
+}
+
+addAsync(1, 2)
+    .then(success => {
+        resultA = success;
+        return resultA;
+    })
+    .then(success => addAsync(success, 3))
+    .then(success => {
+        resultB = success;
+        return resultB;
+    })
+    .then(success => addAsync(success, 4))
+    .then(success => {
+        resultC = success;
+        return resultC;
+    })
+    .then(success => {
+        console.log('total: ' + success)
+        console.log(resultA, resultB, resultC)
+    });
+
+
+
+
 // Here is how to create a promise:
 function myFirstPromise(url) {
     // Create new promise with the Promise() constructor;
@@ -67,6 +137,25 @@ function get(url) {
         req.send();
     });
 }
+
+/*----------------------------------------
+In an ideal world, all asynchronous functions would already return promises. 
+Yet some APIs still expect success and/or failure callbacks to be passed in the old way. 
+like the above XHR, also the setTimeout() function:
+
+setTimeout(() => saySomething("10 seconds passed"), 10000);
+
+problematic if saySomething fails, nothing catches it.
+
+Best practice is to wrap problematic functions at the lowest possible level, 
+and then never call them directly again:
+
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+wait(10000).then(() => saySomething("10 seconds")).catch(failureCallback);
+
+Since setTimeout doesn't really fail, we left out reject.
+---------------------------------------*/
+
 
 // compare the old way
 function old_get(myHttpRequest,url) {
@@ -148,3 +237,94 @@ getChapter(0).then(function(chapter) {
 }).then(function(chapter) {
   console.log(chapter);
 })
+
+
+//ES6 fat arrow
+const isMomHappy = true;
+const willIGetNewPhone = new Promise(
+    (resolve, reject) => { 
+        if (isMomHappy) {
+            const phone = {
+                brand: 'Samsung',
+                color: 'black'
+            };
+            resolve(phone);
+        } else {
+            const reason = new Error('mom is not happy');
+            reject(reason);
+        }
+
+    }
+);
+// 2nd promise
+var showOff = function (phone) {
+    return new Promise(
+        function (resolve, reject) {
+            var message = 'Hey friend, I have a new ' +
+                phone.color + ' ' + phone.brand + ' phone';
+
+            resolve(message);
+        }
+    );
+};
+// since we didn't call the reject, we can shorten it using Promise.resolve instead.
+const showOff = function (phone) {
+    const message = 'Hey friend, I have a new ' +
+                phone.color + ' ' + phone.brand + ' phone';
+    return Promise.resolve(message);
+};
+
+// call our promise
+const askMom = function () {
+    willIGetNewPhone
+        .then(showOff)
+        .then(fulfilled => console.log(fulfilled)) // fat arrow
+        .catch(error => console.log(error.message)); // fat arrow
+};
+
+askMom();
+
+//ES7 introduce async and await syntax. 
+//It makes the syntax look prettier without the .then and .catch
+
+// 2nd promise: async returns a promise
+async function showOff(phone) {
+    return new Promise(
+        (resolve, reject) => {
+            var message = 'Hey friend, I have a new ' +
+                phone.color + ' ' + phone.brand + ' phone';
+
+            resolve(message);
+        }
+    );
+};
+
+// call our promise: await
+async function askMom() {
+    try {
+        console.log('before asking Mom');
+
+        let phone = await willIGetNewPhone;
+        let message = await showOff(phone);
+
+        console.log(message);
+        console.log('after asking mom');
+    }
+    catch (error) {
+        console.log(error.message);
+    }
+}
+
+(async () => {
+    await askMom();
+})();
+
+//Note, we use try { ... } catch(error) { ... } to catch promise error, the rejected promise.
+
+/*
+
+Some key differences between promises and observable are:
+- Observables are cancellable
+- Observable are lazy
+
+*/

@@ -70,3 +70,28 @@ var divs = Array.from(document.querySelectorAll('div'));
 function sortArgs4() {
     return Array.from(arguments).sort(function (a, b) { return a - b; });
   }
+
+/*-----arrow function does not have the arguments -------
+function foo(x) {
+   console.log(arguments)
+} //foo(1) prints [1]
+
+const bar = x => console.log(arguments) 
+gives the following error:
+Uncaught ReferenceError: arguments is not defined
+
+since the arguments array-like object was a workaround to begin with, which ES6 has solved with a rest parameter:
+
+const bar = (...arguments) => console.log(arguments);
+arguments is by no means reserved here but just chosen. You can call it whatever.
+const test = (one, two, ...rest) => [one, two, rest];
+rest parameter must be last formal parameter.
+
+rest arguments obviate the need for the arguments object. 
+With rest arguments, you can have an actual array anytime you actually want it. bit there's no language overhead
+
+const myFunc = (...args) => console.log ("arguments", args)
+myFunc (1, 2, 3)
+// arguments [1, 2, 3]
+
+---------------------------------------*/

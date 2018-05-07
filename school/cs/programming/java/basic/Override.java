@@ -1,9 +1,19 @@
 package basic;
 
+/*
+overloading deals with the notion of having two or more methods in the same class with the same name but different arguments.
+It is similar to constructor overloading in Java, that allows a class to have more than one constructor 
+having different argument lists.
+
+Java doesn't support user-defined operator overloading. The only aspect of operator overloading is the handling 
+of + for strings, which either results in compile-time concatenation of constants or execution-time concatenation 
+using StringBuilder/StringBuffer.
+*/
+
 public class Override {
 /*
  * (1) Only public, protected and default (in the same package) can be overridden. 
- * That also means private methods cannot be overridden.
+ * private method and constructor cannot be overridden.
  * 
  * The overriding method must not have more restrictive access modifier.
  * default, then the overriding one must be default, protected or public.
@@ -16,7 +26,8 @@ public class Override {
  * class name of the superclass to invoke the hidden method.
  * 
  * Similarly, you cannot override a private method in sub class because it's not accessible there, 
- * what you do is create another private method with the same name in the child class.
+ * what you do is create another private method with the same name in the child class. 
+ * (If you use the annotation @Override in sub class method, compiler will complain. So without this annotation, it will work just fine.)
  * 
  * (3) The overriding method must have same argument list. 
  * If we add a new argument to the method,then it is not an overriding, it is an overload instead.

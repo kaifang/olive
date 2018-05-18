@@ -1,26 +1,32 @@
 ### onclick vs addEventListener
+
+### callback using function reference or wrapper function (anonymous, arrow)
+
 ```
+function modifyText(new_text) {
+  var t2 = document.getElementById("t2");
+  t2.firstChild.nodeValue = new_text;    
+}
+
 var element = document.querySelector('button');
+
 // (1) Passing a function reference - do not add '()' after it, which would call the function!
 element.onclick = modifyText;
 
 var el = document.getElementById("sometag");
 el.addEventListener("click", modifyText, false);
 
-// (2) Using a function expression (anonymous function)
+// (2) Using a function expression 
+//  anonymous function
 element2.onclick = function() {
   alert('click');
 };
 
-function modifyText(new_text) {
-  var t2 = document.getElementById("t2");
-  t2.firstChild.nodeValue = new_text;    
-}
-
-// If you want to pass parameters to the listener function, you may use an anonymous function. 
+// If you want to pass parameters to the listener function, you may use 
+// (2-1) anonymous function. 
 el.addEventListener("click", function(){modifyText("Hi World!")}, false);
 
-// (3) with an arrow function
+// (2-2) arrow function
 el.addEventListener("click", () => { modifyText("Hi World!"); }, false);
 
 ```
@@ -36,7 +42,7 @@ Passing a function reference - do not add '()' after it, which would call the fu
 Note that we’re passing a function as the onClick prop. 
 Doing `onClick={alert('click')}` would alert immediately instead of when the button is clicked.
 
-Note, React always use function, not a string name for the onClick.
+Note, React always use function ref for the onClick.
 
 ```
 class Button extends React.Component {

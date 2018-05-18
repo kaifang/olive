@@ -78,3 +78,18 @@ Button.prototype.hookEvent(element) {
   element.addEventListener('click', () => this.click());
 }
 ```
+
+note: 
+An arrow function does not have its own `this`; the `this` value of the enclosing execution context is used. 
+If you used `Arrow function` to define `callback`, it gets the context of the enclosing React component.
+
+
+### Is there any difference?
+```
+<div onClick={()=>{this.props.onClick()}}>Previous</div>
+<div onClick={this.props.onClick}>Previous</div>
+```
+since you just wish to execute callback function and do not want to pass any data,  there is no diff. The first one is simply useless and will only add to performance implication.
+
+
+## even if you have to pass some additional data to these function from ThirdClass and SecondClass, you shouldn't directly use Arrow function or bind in render.

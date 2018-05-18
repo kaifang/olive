@@ -42,7 +42,7 @@ Which prints out:
 15
 ```
 
-### pass parameters from event handlers. 
+##### for example: pass parameters from event handlers. 
 If you have this react code: 
 ```
 var Note = React.createClass({ 
@@ -71,7 +71,6 @@ Button.prototype.hookEvent(element) {
 }
 ```
 
-Or:
 ```
 Button.prototype.hookEvent(element) {
   // => functions do not change 'this', so you can use it directly
@@ -90,6 +89,46 @@ If you used `Arrow function` to define `callback`, it gets the context of the en
 <div onClick={this.props.onClick}>Previous</div>
 ```
 since you just wish to execute callback function and do not want to pass any data,  there is no diff. The first one is simply useless and will only add to performance implication.
+
+
+### callback as a class field
+
+#### old:
+```
+myHandler(){
+  //  this.setState(...)
+}
+```
+You will need to explicit bind it to the class:
+
+```
+constructor(props){
+  super(props);
+  this.myHandler = this.myHandler.bind(this);
+}
+```
+
+#### new: arrow function (use a lexical context for this), no need to do Bind
+
+```
+myHandler = () => {
+  //  this.setState(...)
+}
+```
+
+With both approaches you will use the handler like this: 
+
+```
+<div onClick={this.myHandler}></div> 
+```
+
+if you want to pass parameters to the handler, then
+
+```
+<div onClick={() => this.myHandler(someParameter)}></div>
+```
+
+This will create a new function instance on each render. There is a better approach for this.
 
 
 ## even if you have to pass some additional data to these function from ThirdClass and SecondClass, you shouldn't directly use Arrow function or bind in render.

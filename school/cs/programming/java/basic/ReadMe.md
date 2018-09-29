@@ -137,3 +137,21 @@ So if we add or remove elements from the returned list, an UnsupportedOperationE
 ArrayList<Integer> list24 = Arrays.stream(integers)
                           .collect(Collectors.toCollection(ArrayList::new));
 ```                          
+
+Creating an ArrayList
+```
+        //ArrayList of String
+        List<String> animals = new ArrayList<>();
+
+        // Adding new elements to the ArrayList
+        animals.add("Lion");
+        animals.add("Tiger");
+        animals.add("Cat");
+        animals.add("Dog");
+
+        // Adding an element at a particular index in an ArrayList
+        animals.add(2, "Elephant");
+        
+        System.out.println(animals);
+
+```        

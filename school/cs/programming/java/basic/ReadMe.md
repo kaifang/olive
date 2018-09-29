@@ -2,6 +2,12 @@
 
 ### char[]  //array
 
+```
+  char data[] = {'a', 'b', 'c'};
+  char[] data_same = {'a', 'b', 'c'};
+
+```
+
 ### int[]   //array
 
 ```
@@ -40,7 +46,23 @@ is equivalent to:
 
 ### String[]  //array
 
-split
+`for loop` vs `enhanced for loop`
+```
+String[] languages = {"Java", "Scala", "C++", "Ruby", "Python", "Perl"}; 
+
+// looping over array using foreach loop 
+System.out.println("Iterating over String array using Java 1.5 foreach loop"); 
+for(String str : languages)
+{ System.out.println(str); } 
+
+// looping over classical for loop 
+System.out.println("Looping over String array using for loop"); 
+for(int i=0; i<languages.length/2; i++)
+{ System.out.println(languages[i]); }
+
+```
+
+String to String[] array using split
 ```
         String str = "In@God@We@Trust"; 
         String[] arrOfStr = str.split("@", 2); 

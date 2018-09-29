@@ -2,6 +2,25 @@
 
 ### char[]  //array
 
+### int[]   //array
+
+```
+//new int[]{Integer.MAX_VALUE, 0, 1, 2, Integer.MAX_VALUE}
+
+int[] cubes = {1, 4, 9, 16, 25, 36}; 
+
+// iterating over an array using for loop 
+System.out.println("iterating over an array using for loop in Java:"); 
+for (int i = 0; i < cubes.length; i++) 
+{ System.out.println(cubes[i]); } 
+
+// iterating over an array using enhanced for loop 
+System.out.println("iterating over an array using enhanced for loop in Java:"); 
+for (int cube : cubes) 
+{ System.out.println(cube); }
+
+```
+
 ### String  // immutable 
 
 ```
@@ -48,14 +67,24 @@ word6
 ```
 
 ### List
+major difference between ArrayList and Array is that, you can not store primitives in ArrayList
+
 Array.asList()
 
 ```
 int[] intArr = new int[] { 1, 2, 3 };
 Arrays.asList(intArr)
-Arrays.asList(new int[] { 1, 2, 3 }); //didn't compile 
+Arrays.asList(new int[] { 1, 2, 3 }); //didn't compile, can't have a List of a primitive type
 ```
-Note: you can't have a List of a primitive type
+Though Autoboxing of Java 5 may give you an impression of storing primitives in ArrayList, 
+it actually automatically converts primitives to Object. e.g.
+
+```
+ArrayList<Integer> integerList = new ArrayList<Integer>();
+integerList.add(1); 
+//here we are not storing primitive in ArrayList, instead autoboxing will convert int primitive to Integer object
+```
+
 
 ```
 Integer[] integers = new Integer[] {1,2,3};

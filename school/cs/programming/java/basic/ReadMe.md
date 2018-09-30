@@ -151,6 +151,31 @@ Another worth noting point is that List returned by Arrays.asList() is a fixed l
         List<String> coolStringList = Arrays.asList("Java", "Scala", "Groovy");
 
 ```
+##### 1 Array to ArrayList using Using Arrays.asList()
+##### 2 Array to ArrayList using Collections.addAll()
+
+not as fast as Arrays.asList() but more flexible, since you are creating copy of original array, you can add, modify and remove any element without affecting original one.
+
+```
+String[] asset = {"equity", "stocks", "foriegn exchange", "fixed income", "futures", "options"};
+List<String> assetList = new ArrayList(); 
+Collections.addAll(assetList, asset);
+
+```
+
+##### 3 Array to ArrayList using Spring Framework CollectionUtils.arrayToList()
+```
+String [] currency = {"SGD", "USD", "INR", "GBP", "AUD", "SGD"}; 
+System.out.println("Size of array: " + currency.length); 
+
+List<String> currencyList = CollectionUtils.arrayToList(currency); 
+//currencyList.add("JPY"); //Exception in thread "main" java.lang.UnsupportedOperationException 
+//currencyList.remove("GBP");//Exception in thread "main" java.lang.UnsupportedOperationException 
+System.out.println("Size of List: " + currencyList.size()); 
+System.out.println(currencyList);
+
+```
+
 
 ### Need ArrayList and not List?
 
@@ -176,3 +201,16 @@ Creating an ArrayList
         System.out.println(animals);
 
 ```        
+
+### convert ArrayList to Array using toArray()
+
+```
+ArrayList assetTradingList = new ArrayList(); 
+assetTradingList.add("Stocks"); 
+assetTradingList.add("futures and option trading"); 
+assetTradingList.add("fixed income bond trading"); 
+
+String [] assetTradingArray = new String[assetTradingList.size()]; 
+assetTradingList.toArray(assetTradingArray);
+
+```

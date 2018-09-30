@@ -111,7 +111,8 @@ integerList.add(1);
 ```
 Integer[] integers = new Integer[] {1,2,3};
 
-List<Integer> list2 = Arrays.asList(1, 2, 3);  //shorter
+List<Integer> list2 = Arrays.asList(1, 2, 3);  //one line
+
 // WARNING:
 list2.add(1);     // UnsupportedOperationException
 list2.remove(1);  // UnsupportedOperationException
@@ -141,9 +142,15 @@ class Sortbyroll implements Comparator<Student>
         
 List<Integer> list23 = Arrays.stream(integers).collect(Collectors.toList()); //Java 8 only
 ```
-When we use Arrays.asList the size of the returned list is fixed because the list returned is not java.util.ArrayList, 
-but a private static class defined inside java.util.Arrays. 
-So if we add or remove elements from the returned list, an UnsupportedOperationException will be thrown.
+Note that Arrays.asList() return java.util.List and not ArrayList or LinkedList. 
+
+Another worth noting point is that List returned by Arrays.asList() is a fixed length list which doesn't allow you to add or remove element from it. add() and remove() method will throw UnSupportedOperationException if you try to add or remove element from List. Some program mistook this List as read only List, which it is not because it allows set() operation which can be used to change element in List.
+
+```
+      //create and initialize List in one line
+        List<String> coolStringList = Arrays.asList("Java", "Scala", "Groovy");
+
+```
 
 ### Need ArrayList and not List?
 

@@ -125,6 +125,20 @@ list21.add(4);  // java.lang.UnsupportedOperationException
 List<Integer> list22 = new ArrayList<>(Arrays.asList(integers)); // good. 
 //note you need to specify type when constructing ArrayList
 
+//now you can sort this list elements. 
+Collections.sort(list22);  //ascending order
+//Collections.sort(list22, Collections.reverseOrder()); 
+
+// or sort according to user defined criteria. 
+Collections.sort(myList, new Sortbyroll()); 
+class Sortbyroll implements Comparator<Student> 
+{ 
+    public int compare(Student a, Student b) 
+    { 
+        return a.grade - b.grade; //ascending order
+    } 
+} 
+        
 List<Integer> list23 = Arrays.stream(integers).collect(Collectors.toList()); //Java 8 only
 ```
 When we use Arrays.asList the size of the returned list is fixed because the list returned is not java.util.ArrayList, 

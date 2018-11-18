@@ -1,6 +1,6 @@
 ### Exception Hierarchy
 All exception classes are subtypes of the java.lang.Exception class. The exception class is a subclass of the Throwable class.
-Hierarchy: ![Hierarchy](img/java-exception-hierarchy.jpg)
+ ![Hierarchy](../img/java-exception-hierarchy.jpg)
 
 ### Two types of exceptions:
 

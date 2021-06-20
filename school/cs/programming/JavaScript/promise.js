@@ -73,6 +73,7 @@ function myFirstPromise(url) {
     // Create new promise with the Promise() constructor;
     // This has as its argument a function
     // with two parameters, resolve and reject
+    //These two arguments: resolve and reject. These functions are pre-defined by the JavaScript engine, so we don’t need to create them.
     return new Promise(function (resolve, reject) {
         // Standard XHR 
         const request = new XMLHttpRequest();
